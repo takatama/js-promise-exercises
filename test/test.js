@@ -24,4 +24,10 @@ describe('promise', function() {
             assert.equal(result, 'start -> methodA -> methodB -> methodC');
         })
     });
+
+    it('should return the result of chained method calls', function () { // Argument 'done' is not required.
+        return promisified.abcWithSleep('start', 100).then(function (result) {
+            assert.equal(result, 'start -> methodA -> methodB -> methodC');
+        })
+    });
 });
