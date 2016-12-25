@@ -1,9 +1,10 @@
 var assert = require('assert');
-var index = require('../src/index');
+var hell = require('../src/hell');
+var promisified = require('../src/promisified');
 
 describe('callbackHell', function() {
     it('should return the result of chained method calls', function(done) {
-        index.callbackHell('start', function (result) {
+        hell.abc('start', function (result) {
             assert.equal(result, 'start -> methodA -> methodB -> methodC');
             done();
         })
@@ -12,7 +13,7 @@ describe('callbackHell', function() {
 
 describe('promise', function() {
     it('should return the result of chained method calls', function() {
-        return index.promisifiedCallbackHell('start').then(function (result) {
+        return promisified.abc('start').then(function (result) {
             assert.equal(result, 'start -> methodA -> methodB -> methodC');
         })
     });
