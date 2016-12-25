@@ -12,7 +12,7 @@ describe('callbackHell', function() {
 });
 
 describe('promise', function() {
-    it('should return the result of chained method calls', function() {
+    it('should return the result of chained method calls', function () { // Argument 'done' is not required.
         return promisified.abc('start').then(function (result) {
             assert.equal(result, 'start -> methodA -> methodB -> methodC');
         })
