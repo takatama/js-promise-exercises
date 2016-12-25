@@ -9,6 +9,13 @@ describe('callbackHell', function() {
             done();
         })
     });
+
+    it('should return the result of chained method calls', function (done) {
+        hell.abcWithSleep('start', 100, function (result) {
+            assert.equal(result, 'start -> methodA -> methodB -> methodC');
+            done();
+        })
+    });
 });
 
 describe('promise', function() {

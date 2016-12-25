@@ -25,3 +25,19 @@ exports.abc = function (chain, func) {
         });
     });
 };
+
+exports.abcWithSleep = function (chain, millisec, func) {
+    setTimeout(function () {
+        methodA(chain, function (resultA) {
+            setTimeout(function () {
+                methodB(resultA, function (resultB) {
+                    setTimeout(function () {
+                        methodC(resultB, function (resultC) {
+                            func(resultC);
+                        });
+                    }, millisec);
+                });
+            }, millisec);
+        })
+    }, millisec);
+};
