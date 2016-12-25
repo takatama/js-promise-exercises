@@ -1,28 +1,49 @@
-var methodA = function (func) {
+var methodA = function (result, func) {
     if (func) {
-        func('methodA');
+        func(result + ' -> methodA');
     }
 };
 
-var methodB = function (func) {
+var methodB = function (result, func) {
     if (func) {
-        func('methodB');
+        func(result + ' -> methodB');
     }
 };
 
-var methodC = function (func) {
+var methodC = function (result, func) {
     if (func) {
-        func('methodC');
+        func(result + ' -> methodC');
     }
 };
 
-exports.callbackHell = function (func) {
-    methodA(function (a) {
-        methodB(function (b) {
-            methodC(function (c) {
-                func(a + ' -> ' + b + ' -> ' + c);
+exports.callbackHell = function (start, func) {
+    methodA(start, function (a) {
+        methodB(a, function (b) {
+            methodC(b, function (c) {
+                func(c);
            });
         });
     });
 };
 
+var promisifiedMethodA = function (result) {
+    return Promise.resolve(result + ' -> methodA');
+};
+
+var promisifiedMethodB = function (result) {
+    return Promise.resolve(result + ' -> methodB');
+};
+
+var promisifiedMethodC = function (result) {
+    return Promise.resolve(result + ' -> methodC');
+};
+
+exports.promisifiedCallbackHell = function (start) {
+    return promisifiedMethodA(start).then(function (a) {
+        return promisifiedMethodB(a);
+    }).then(function (b) {
+        return promisifiedMethodC(b);
+    }).then(function (c) {
+        return Promise.resolve(c);
+    });
+}
